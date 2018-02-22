@@ -1,7 +1,6 @@
 import React from 'react';
 
-const uppercase = (text) => text.toUpperCase();
-const currency = (price) => `${price} €`;
+import { currency, uppercase } from './lib';
 
 const Beer = ({ beer, onClick }) => beer.stock === 0 ? null : (
   <div className="col-sm-4 col-lg-4 col-md-4">
