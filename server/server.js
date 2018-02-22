@@ -25,20 +25,22 @@ router.get('/basket', (req, res) => {
 router.post('/basket', (req, res) => {
   basket.push(req.body);
 
-  beers = beers.map(beer => {
+  beers.forEach(beer => {
     if (beer.label.toUpperCase() === req.body.label.toUpperCase()) {
-      beer.stock--;
+      if (beer.stock > 0) {
+        beer.stock--;
+      } else {
+        res.sendStatus(500);
+      }
     }
-
-    return beer;
   });
 
-  res.send(201, req.body);
+  res.status(201).send(basket);
 });
 
 router.post('/basket/confirm', (req, res) => {
   basket = [];
-  res.send(200);
+  res.sendStatus(200);
 });
 
 app.use(context, router);

@@ -22,7 +22,7 @@ module.exports = function (req, res, next) {
 
   // intercept OPTIONS method
   if (oneof && req.method == 'OPTIONS') {
-    res.send(200);
+    res.sendStatus(200);
   } else {
     next();
   }
