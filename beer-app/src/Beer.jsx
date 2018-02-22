@@ -1,13 +1,16 @@
 import React from 'react';
 
+const uppercase = (text) => text.toUpperCase();
+const currency = (price) => `${price} €`;
+
 const Beer = ({ beer, onClick }) => beer.stock === 0 ? null : (
   <div className="col-sm-4 col-lg-4 col-md-4">
     <div className={'thumbnail' + (beer.stock === 1 ? ' last' : '')}>
       <img src={beer.image} alt="" />
       <div className="caption">
-        <h4 className="pull-right">{beer.price} €</h4>
+        <h4 className="pull-right">{currency(beer.price)}</h4>
         <h4>
-          <span>{beer.label}</span>
+          <span>{uppercase(beer.label)}</span>
         </h4>
         <p>{beer.description}</p>
       </div>
