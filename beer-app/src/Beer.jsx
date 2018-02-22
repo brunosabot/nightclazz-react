@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Beer = ({ beer, onClick }) => (
+const Beer = ({ beer, onClick }) => beer.stock === 0 ? null : (
   <div className="col-sm-4 col-lg-4 col-md-4">
-    <div className="thumbnail">
+    <div className={'thumbnail' + (beer.stock === 1 ? ' last' : '')}>
       <img src={beer.image} alt="" />
       <div className="caption">
         <h4 className="pull-right">{beer.price} €</h4>

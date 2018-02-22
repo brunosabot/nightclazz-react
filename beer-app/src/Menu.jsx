@@ -1,5 +1,7 @@
 import React from 'react';
 
+const sumPrice = (acc, product) => { return acc + product.price };
+
 const Menu = ({ basket }) => (
   <nav className="navbar navbar-inverse navbar-fixed-top">
     <div className="container">
@@ -10,8 +12,11 @@ const Menu = ({ basket }) => (
         <ul className="nav navbar-nav">
           <li>
             <a href="/basket.html">
-              Accéder à votre panier ({basket.length} articles -&nbsp;
-              {basket.reduce((acc, product) => { return acc + product.price }, 0)}€)
+              Accéder à votre panier ({
+                basket.length > 0
+                  ? `${basket.length} articles - ${basket.reduce(sumPrice, 0)}€`
+                  : 'vide'
+              })
             </a>
           </li>
         </ul>

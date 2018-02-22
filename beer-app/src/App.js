@@ -39,8 +39,17 @@ class App extends Component {
   };
 
   addBeer = (beer) => {
+    const beers = this.state.beers.map(b => {
+      if (beer.label === b.label) {
+        return { ...b, stock: b.stock - 1 };
+      }
+
+      return b;
+    });
+
     this.setState({
-      basket: [ ...this.state.basket, beer ]
+      basket: [ ...this.state.basket, beer ],
+      beers
     });
   }
 
@@ -53,10 +62,7 @@ class App extends Component {
           <div className="row">
             <div className="col-md-12">
               <div className="row">
-                <Beer key={this.state.beers[0].label} beer={this.state.beers[0]} onClick={this.addBeer} />
-                <Beer key={this.state.beers[1].label} beer={this.state.beers[1]} onClick={this.addBeer} />
-                <Beer key={this.state.beers[2].label} beer={this.state.beers[2]} onClick={this.addBeer} />
-                <Beer key={this.state.beers[3].label} beer={this.state.beers[3]} onClick={this.addBeer} />
+                {this.state.beers.map(beer => <Beer key={beer.label} beer={beer} onClick={this.addBeer} />)}
               </div>
             </div>
           </div>
