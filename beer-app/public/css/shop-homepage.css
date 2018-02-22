@@ -1,0 +1,55 @@
+body {
+  padding-top: 70px;
+}
+
+footer {
+  margin: 50px 0;
+}
+
+.caption {
+  height: 124px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.caption h4 {
+  white-space: nowrap;
+}
+
+.thumbnail {
+  padding: 20px;
+}
+
+.thumbnail .caption {
+  padding: 0;
+}
+
+.thumbnail img {
+  max-width: 150px;
+  width: 100%;
+}
+
+.ratings {
+  align-items: center;
+  color: #d17581;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.ratings button {
+  padding: 3px 12px;
+}
+
+.ratings p {
+  margin: 0;
+}
+
+.navbar-header {
+  float: left;
+}
+
+.container > .navbar-header {
+  margin-left: 0;
+  margin-right: 0;
+}
