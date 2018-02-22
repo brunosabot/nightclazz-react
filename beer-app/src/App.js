@@ -53,7 +53,10 @@ class App extends Component {
           <div className="row">
             <div className="col-md-12">
               <div className="row">
-                {this.state.beers.map(beer => <Beer key={beer.label} beer={beer} onClick={this.addBeer} />)}
+                <Beer key={this.state.beers[0].label} beer={this.state.beers[0]} onClick={this.addBeer} />
+                <Beer key={this.state.beers[1].label} beer={this.state.beers[1]} onClick={this.addBeer} />
+                <Beer key={this.state.beers[2].label} beer={this.state.beers[2]} onClick={this.addBeer} />
+                <Beer key={this.state.beers[3].label} beer={this.state.beers[3]} onClick={this.addBeer} />
               </div>
             </div>
           </div>
