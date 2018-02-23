@@ -8,21 +8,16 @@ export const priceSorter = (a, b) => a.price - b.price;
 
 export const sortByPrice = (items) => items.sort(priceSorter);
 
+export const sumPrice = (acc, product) => { return acc + product.price };
+
 export const loadBeers = async () => {
   const resBeers = await fetch('http://localhost:1337/api/v1/beers');
-  const beers = await resBeers.json();
-
-  return {
-    beers,
-    beersSortedByPrice: sortByPrice(beers)
-  };
+  return resBeers.json();
 };
 
 export const loadBasket = async () => {
   const resBasket = await fetch('http://localhost:1337/api/v1/basket');
-  const basket = await resBasket.json();
-
-  return { basket };
+  return resBasket.json();
 };
 
 export const addBasket = async (beer) => {
@@ -35,14 +30,10 @@ export const addBasket = async (beer) => {
     body: JSON.stringify(beer)
   };
   const resBasket = await fetch('http://localhost:1337/api/v1/basket', options);
-  const basket = await resBasket.json();
-
-  return { basket };
+  return resBasket.json();
 };
 
-export const sendBasket = async (beer) => {
+export const sendBasket = async () => {
   const options = { method: 'POST' };
   await fetch('http://localhost:1337/api/v1/basket/confirm', options);
-
-  return true;
 };

@@ -1,41 +1,28 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import { loadBeers, loadBasket, addBasket } from './lib';
+import { updateBeers } from './beers.store';
+import { addBeerToBasket } from './basket.store';
 
 import Menu from './Menu';
 import Footer from './Footer';
 import Beer from './Beer';
 
 class Home extends React.PureComponent {
-  state = {
-    beers: [],
-    beersSortedByPrice: [],
-    basket: []
-  };
-
-  async componentDidMount() {
-    const beersObject = await loadBeers();
-    const basketObject = await loadBasket();
-
-    this.setState({ ...beersObject, ...basketObject });
-  }
-
   addBeer = async (beer) => {
-    const basketObject = await addBasket(beer);
-    const beersObject = await loadBeers();
-
-    this.setState({ ...beersObject, ...basketObject });
+    this.props.addBeerToBasket(beer);
+    this.props.updateBeers();
   }
 
   render() {
     return (
       <Fragment>
-        <Menu basket={this.state.basket}></Menu>
+        <Menu></Menu>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="row">
-                {this.state.beersSortedByPrice.map(beer => (
+                {this.props.beers.map(beer => (
                   <Beer key={beer.label} beer={beer} onClick={this.addBeer} />
                 ))}
               </div>
@@ -48,4 +35,13 @@ class Home extends React.PureComponent {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  beers: state.beers.sortedBeers,
+  basket: state.basket.beers
+});
+const mapDispatchToProps = (dispatch) => ({
+  addBeerToBasket: addBeerToBasket(dispatch),
+  updateBeers: updateBeers(dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

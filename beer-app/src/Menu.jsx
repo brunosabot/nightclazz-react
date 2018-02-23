@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const sumPrice = (acc, product) => { return acc + product.price };
+import { sumPrice } from './lib';
 
 const Menu = ({ basket }) => (
   <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -26,4 +27,8 @@ const Menu = ({ basket }) => (
   </nav>
 );
 
-export default Menu;
+const mapStateToProps = (state) => ({
+  basket: state.basket.beers
+});
+
+export default connect(mapStateToProps)(Menu);
