@@ -1,19 +1,45 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
-import { currency, loadBasket } from './lib';
+import { creditCard, currency, loadBasket, sendBasket } from './lib';
 
 import Menu from './Menu';
 import Footer from './Footer';
 
 class Basket extends React.PureComponent {
   state = {
-    basket: []
+    basket: [],
+    name: '',
+    address: '',
+    creditCard: ''
   };
 
   async componentDidMount() {
     const basketObject = await loadBasket();
 
     this.setState({ ...basketObject });
+  }
+
+  confirmBasket = async (event) => {
+    event.preventDefault();
+
+    if (this.state.name && this.state.address && creditCard.test(this.state.creditCard)) {
+      await sendBasket();
+
+      this.props.history.push('/');
+    }
+  };
+
+  handleName = (event) => {
+    this.setState({ name: event.target.value });
+  }
+
+  handleAddress = (event) => {
+    this.setState({ address: event.target.value });
+  }
+
+  handleCreditCard = (event) => {
+    this.setState({ creditCard: event.target.value });
   }
 
   render() {
@@ -35,31 +61,50 @@ class Basket extends React.PureComponent {
               </div>
 
               <div className="panel panel-default">
-                  <div className="panel-heading">Order</div>
-                  <div className="panel-body">
-                      <form>
-                          <div className="form-group has-error">
-                              <label className="control-label" htmlFor="name">Name</label>
-                              <input type="text" id="name" className="form-control" name="name" required />
-                          </div>
+                <div className="panel-heading">Order</div>
+                <div className="panel-body">
+                  <form>
+                    <div className={'form-group' + (this.state.name ? '': ' has-error')}>
+                      <label className="control-label" htmlFor="name">Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        className="form-control"
+                        name="name"
+                        required
+                        onChange={this.handleName}
+                        value={this.state.name} />
+                    </div>
 
-                          <div className="form-group has-error">
-                              <label className="control-label" htmlFor="address">Address</label>
-                              <textarea id="address" className="form-control" name="address" required></textarea>
-                          </div>
+                    <div className={'form-group' + (this.state.address ? '': ' has-error')}>
+                      <label className="control-label" htmlFor="address">Address</label>
+                      <textarea
+                        id="address"
+                        className="form-control"
+                        name="address"
+                        required
+                        onChange={this.handleAddress}
+                        value={this.state.address} />
+                    </div>
 
-                          <div className="form-group has-error">
-                              <label className="control-label" htmlFor="creditCard">Credit card number</label>
-                              <input id="creditCard" className="form-control" name="creditCard" pattern="^[0-9]{3}-[0-9]{3}$" />
-                          </div>
+                    <div className={'form-group' + (creditCard.test(this.state.creditCard) ? '': ' has-error')}>
+                      <label className="control-label" htmlFor="creditCard">Credit card number</label>
+                      <input
+                        id="creditCard"
+                        className="form-control"
+                        name="creditCard"
+                        placeholder="123-456"
+                        onChange={this.handleCreditCard}
+                        value={this.state.creditCard} />
+                    </div>
 
-                          <div className="col-xs-12">
-                              <button type="submit" className="btn btn-success pull-right">
-                                  Validate
-                              </button>
-                          </div>
-                      </form>
-                  </div>
+                    <div className="col-xs-12">
+                      <button type="submit" className="btn btn-success pull-right" onClick={this.confirmBasket}>
+                        Validate
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
 
           </div>
@@ -69,4 +114,4 @@ class Basket extends React.PureComponent {
   }
 }
 
-export default Basket;
+export default withRouter(Basket);

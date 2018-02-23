@@ -1,3 +1,5 @@
+export const creditCard = /^[0-9]{3}-[0-9]{3}$/
+
 export const uppercase = (text) => text.toUpperCase();
 
 export const currency = (price) => `${price} €`;
@@ -36,4 +38,11 @@ export const addBasket = async (beer) => {
   const basket = await resBasket.json();
 
   return { basket };
+};
+
+export const sendBasket = async (beer) => {
+  const options = { method: 'POST' };
+  await fetch('http://localhost:1337/api/v1/basket/confirm', options);
+
+  return true;
 };
