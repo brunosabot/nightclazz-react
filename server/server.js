@@ -6,9 +6,9 @@ const conf = require('./server.json');
 const beers = require(conf.beers);
 
 const app = express();
-const basket = [];
 const context = '/api/v1';
 const router = express.Router();
+let basket = [];
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
