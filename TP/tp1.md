@@ -6,8 +6,19 @@ Pour cela nous allons nous servir de l'outil en ligne de commande officiel : **c
 ## Création de l'application React par défaut
 
 ```shell
-npx create-react-app beer-app
-cd beer-app
+# Recommendé si vous avez la dernière version de node / npm
+$ npx create-react-app beer-app
+$ cd beer-app
+
+# Si vous préférez utiliser yarn
+$ yarn global add create-react-app
+$ create-react-app beer-app
+$ cd beer-app
+
+# Si vous avez une ancienne version de node / npm
+$ npm install -g create-react-app
+$ create-react-app beer-app
+$ cd beer-app
 ```
 
 ## Execution de l'application
